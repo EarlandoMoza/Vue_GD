@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <script src="https://docs.vuejs.id/js/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+        body {
+            font-family: "Poppins", sans-serif;
+        }
+
+        .navbar a:hover {
+            background: #be0002;
+            border-radius: 2rem;
+        }
+    </style>
+
+</head>
+
+<body style="background-color: #fff4f3;">
+
+    <div id="app">
+
+        <!-- navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#fff4f3;">
+            <div class="container">
+                <img src="img/logd.png" width="150px" alt="">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="index.html"
+                                style="color: black;">Home</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- akhir navbar -->
+
+        <section id="projects">
+            <div class="container">
+                <div class="row pt-5">
+                    <div class="col-3 pt-5" v-for="data in datamerch">
+                        <div class="card">
+                            <img :src="data.gambar" class="card-img-top" alt="merch">
+                            <div class="card-body">
+                                <h5 class="card-title">{{data.nama}}</h5>
+                                <p class="card-text">{{data.harga}}</p>
+                                <a href="https://www.tokopedia.com/garasidrift?source=universe&st=product" class="btn"
+                                    style="background-color: #e3f2fd;">{{data.desk}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <br>
+    </section>
+    </div>
+
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: function () {
+                return {
+                    datamerch: [],
+                }
+            },
+            methods: {
+                getmerch: function () {
+                    axios.get('https://project-gd.vercel.app/merch')
+                        .then(response => {
+                            this.datamerch = response.data
+                            console.log(this.datamerch);
+                        })
+                },
+
+
+            },
+            mounted() {
+
+                this.getmerch()
+            }
+        })
+    </script>
+
+</body>
+
+</html>
